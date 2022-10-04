@@ -1,6 +1,9 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Login() {
 const history = useHistory('')
 
@@ -20,7 +23,10 @@ const history = useHistory('')
         });
         let result2 = await result.json();
         if (result2.msg === "invalid username or password") {
-            alert(result2.msg, { ERROR: 'error' })
+            alert.show(result2.msg, { ERROR: 'error' })
+            toast.info('invalid username or password', {
+                position: toast.POSITION.TOP_CENTER
+            }); 
         }else{
             localStorage.setItem('user-info', JSON.stringify(result2));
             localStorage.setItem('userid',result2._id);
@@ -46,6 +52,7 @@ const history = useHistory('')
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

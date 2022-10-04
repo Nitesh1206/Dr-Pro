@@ -1,12 +1,10 @@
 import React,{useContext, useState}from 'react';
-import { FaFacebookF } from "react-icons/fa";
-import {Link, Redirect, useHistory} from "react-router-dom";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import {Link, useHistory} from "react-router-dom";
 import {ContextPatient} from './context/PatientContext';
 import {ContextAuth} from './context/AuthContext';
 
 export default function Header(){
-    const [search, setSearch] = useState('');
-    const [search2,setSearch2] = useState('');
 
     const [patient,setValue] = useContext(ContextPatient);
     const [login,setLogin] = useContext(ContextAuth);
@@ -19,18 +17,6 @@ export default function Header(){
    history.push('/login')
 }
 
-    const searchEvent = (e) => {
-        const data = e.target.value;
-        console.log(data);
-        setSearch(data);
-    }
-
-    const searchEvent2 = (e) => {
-        const data2 = e.target.value;
-        setSearch2(data2);
-        console.log(data2);
-    }
-
     return(
         <div>
                     {/* <!-- Header --> */}
@@ -41,7 +27,7 @@ export default function Header(){
                     {/* <!-- Logo --> */}
                     <div className="logo">
                         <Link to ="/">
-                            <div>Dr<span>PRO</span></div>
+                            <div>Surg<span>PRO</span></div>
                             <div>Plastic Surgery</div>
                         </Link>
                     </div>
@@ -51,16 +37,11 @@ export default function Header(){
                         <ul className="d-flex flex-row align-items-center justify-content-start">
                             <li className="active"><Link to="/">Home</Link></li>
                             <li><Link to ="/about">About us</Link></li>
-                            <li><Link to="/ourteam">Our Team</Link></li>
+                            <li><Link to="/doctorteam">Our Team</Link></li>
+                            <li><Link to ="/hospitals">Hospitals</Link></li>
                             <li><Link to ="/contact">Contact</Link></li>
                         </ul>
                     </nav>
-
-                    <div className="header_extra d-flex flex-row align-items-center justify-content-end ml-auto">
-                        <input type="text" value={search} onChange={searchEvent} className="intro_input search" placeholder="Search"></input>
-                        <input type="text" value={search2} onChange={searchEvent2} className="intro_input search" placeholder="Search"></input>
-                        <Link to={`/ourteam/${search}/${search2}/`} >Search</Link>
-                    </div>
 
                     <div className="header_extra d-flex flex-row align-items-center justify-content-end ml-auto">
                         
@@ -78,9 +59,9 @@ export default function Header(){
 
                         <div className="social header_social">
                             <ul className="d-flex flex-row align-items-center justify-content-start">
-                                <li><a href="#"><FaFacebookF /></a></li>
-                                <li><a href="#"><FaFacebookF /></a></li>
-                                <li><a href="#"><FaFacebookF /></a></li>
+                                <li><Link to="#"><FaFacebookF /></Link></li>
+                                <li><Link to="#"><FaInstagram /></Link></li>
+                                <li><Link to="#"><FaTwitter /></Link></li>
                             </ul>
                         </div>
 

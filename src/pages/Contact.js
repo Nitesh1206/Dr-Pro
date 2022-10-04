@@ -1,13 +1,57 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { useParams, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ContextDoctor } from "../context/DoctorContext";
+import { ContextPatient } from "../context/PatientContext";
+import { FaFacebookF, FaInstagram, FaTwitter, FaDribbble, FaPinterest, FaLinkedin } from "react-icons/fa";
 
 export default function Contact(){
+
+    const {id,frist_name,last_name} = useParams();
+    const [name,setName] = useState('')
+    const [email,setEmail] = useState('')
+    const [phone_no, setPhone_no] = useState('')
+    const [date,setDate] = useState('')
+    const [age,setAge] = useState('')
+    const [time,setTime] = useState('')
+    const [gender,setGender] = useState('')
+    const [medical_condition,setMedical_Condition] = useState('')
+    const [patient,setPatient] = useContext(ContextPatient)
+    const [doctor,setDoctor] = useContext(ContextDoctor)
+
+    console.log("doctor@987",doctor)
+
+    const appointment = async (e) => {
+        e.preventDefault();
+        let detail = {name: name, email: email, Contact: phone_no, date: date, age: age, time:time,
+            gender:gender, medical_condition: medical_condition,patient: patient._id, doctor: doctor}
+            
+        console.log(detail)
+        let result = await fetch('https://callmydoc.herokuapp.com/api/patient-appointment',{
+            method: "POST",
+            header: {
+                "Accept" : "application/json",
+                "content-type" : "application/json" 
+            },
+            body: JSON.stringify(detail)
+        });
+            console.log("doc-result",result);
+            let result2 = await result.json();
+            if(result2.msg === "Appointment Book Successfully"){
+                toast.info("Appointment Book Successfully",{
+                    position : toast.POSITION.BOTTOM_RIGHT
+                });
+            }
+    }
 
     return(
     <div>
 
         <div class="home contact d-flex flex-column align-items-start justify-content-end">
-            <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/contact.jpg" data-speed="0.8"></div>
-            <div class="home_overlay"><img src="images/home_overlay.png" alt="" /></div>
+            <div class="parallax_background parallax-window" data-parallax="scroll"  data-speed="0.8">
+                <img src="images/contact.jpg" alt="Contact Page"></img>
+            </div>
+            <div class="home_overlay"><img src="images/home_overlay.png" alt="Contact Page" /></div>
             <div class="home_container ">
                 <div class="container">
                     <div class="row">
@@ -35,28 +79,27 @@ export default function Contact(){
                     <div class="contact_form_title">Make an Appointment</div>
                     <form action="#" class="contact_form" id="contact_form">
                         <div class="d-flex flex-row align-items-start justify-content-between flex-wrap">
-                            <input type="text" class="contact_input" placeholder="Your Name" required="required" />
-                            <input type="email" class="contact_input" placeholder="Your E-mail" required="required" />
-                            <input type="tel" class="contact_input" placeholder="Your Phone" required="required" />
-                            <select class="contact_select contact_input" required>
-                                <option disabled="" selected="">Speciality</option>
-                                <option>Speciality 1</option>
-                                <option>Speciality 2</option>
-                                <option>Speciality 3</option>
-                                <option>Speciality 4</option>
-                                <option>Speciality 5</option>
-                            </select>
-                            <select class="contact_select contact_input"required="required">
-                                    <option disabled="" selected="">Doctor</option>
-                                    <option>Doctor 1</option>
-                                    <option>Doctor 2</option>
-                                    <option>Doctor 3</option>
-                                    <option>Doctor 4</option>
-                                    <option>Doctor 5</option>
-                                </select>
-                            <input type="text" id="datepicker" class="contact_input datepicker" placeholder="Date" required="required" />
+                            <input type="text" value={name} onChange={(e) => {setName(e.target.value)}} class="contact_input" placeholder="Your Name" required="required" />
+                            <input type="email" value={email} onChange={(e) => {setEmail(e.target.value)}} class="contact_input" placeholder="Your E-mail" required="required" />
+                            <input type="tel" value={phone_no} onChange={(e) => {setPhone_no(e.target.value)}} class="contact_input" placeholder="Your Phone" required="required" />
+                            <input type="text" value={age} onChange={(e) => {setAge(e.target.value)}} class="contact_input" placeholder="Your Age" required="required" />
+                            <input type="text" value={medical_condition} onChange={(e) => {setMedical_Condition(e.target.value)}} class="contact_input" placeholder="Medical Condition" required="required" />
+                            <input type="date" value={date} onChange={(e) => {setDate(e.target.value)}} class="contact_input" placeholder="Appointment Date" required="required" />
+                            <input type="time" value={time} onChange={(e) => {setTime(e.target.value)}} class="contact_input" placeholder="Appointment Time" required="required" />
+                            
+                            <div className="md-form mt-4 " onChange={(e) => {setGender(e.target.value)}}>
+                                <div className="form-check form-check-inline">
+                                <input className="form-check-input" value="Male" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                    <label className="form-check-label" htmlFor="flexRadioDefault1">Male</label>
+                                </div>                               
+                                <div className="form-check form-check-inline">
+                                    <input className="form-check-input" value="Female" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                                    <label className="form-check-label" htmlFor="flexRadioDefault2">Female</label>
+                                </div>
+                            </div>
+                    
                         </div>
-                        <button class="button button_1 contact_button trans_200">make an appointment</button>
+                        <button class="button button_1 contact_button trans_200" onClick={appointment}>make an appointment</button>
                     </form>
                 </div>
             </div>
@@ -90,46 +133,48 @@ export default function Contact(){
                     </div>
                     <div class="contact_social">
                         <ul class="d-flex flex-row align-items-center justify-content-start">
-                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><Link to="#"><FaFacebookF /></Link></li>
+                            <li><Link to="#"><FaInstagram /></Link></li>
+                            <li><Link to="#"><FaTwitter /></Link></li>
+                            <li><Link to="#"><FaDribbble /></Link></li>
+                            <li><Link to="#"><FaPinterest /></Link></li>
+                            <li><Link to="#"><FaLinkedin /></Link></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row google_map_row">
-				<div class="col">
+        {/* <div class="row google_map_row"> */}
+				{/* <div class="col"> */}
 					
 					{/* <!-- Contact Map --> */}
 
-					<div class="contact_map">
+					{/* <div class="contact_map"> */}
 
 						{/* <!-- Google Map --> */}
 						
-						<div class="map">
+						{/* <div class="map">
 							<div id="google_map" class="google_map">
 								<div class="map_container">
 									<div id="map"></div>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
-					</div>
+					{/* </div> */}
 
-				</div>
-			</div>
+				{/* </div> */}
+			{/* </div> */}
         </div>
     </div>
 
             {/* <!-- Newsletter --> */}
 
         <div class="newsletter">
-            <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/newsletter.jpg" data-speed="0.8"></div>
+            <div class="parallax_background parallax-window" data-parallax="scroll"  data-speed="0.8">
+                <img src="images/newsletter.jpg" alt="Newsletter"/>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col text-center">

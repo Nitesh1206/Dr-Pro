@@ -1,48 +1,56 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { ContextAuth } from '../context/AuthContext';
-import LoginPopup from "./LoginPopup";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-export default function DoctorDetails(){
-    const history = useHistory('')
-    const { login,setLogin } = useContext(ContextAuth);
-    console.log("login",login)
+export default function HospitalDetails() {
 
-    const [islogin,setIsLogin] = useState(login);
-    const {id} = useParams();
-    const [item, setItem] = useState([])
-    const [show, setShow] = useState(false);
-    useEffect(() => {
-        fetch(`https://callmydoc.herokuapp.com/api/doctors/${id}`).then((result) => result.json().then((resp) => {
-            setItem(resp);
-        }))
-    }, [id])
-    console.log('item',item)
-    function loginpopup () {
-        if(!localStorage.getItem('userid'))
-    {
-            history.push("/login")
+        const {id} = useParams();
+       const [hospitalData, setHospitalData] = useState ([]);
+
+    //    useEffect(() => {
+    //         fetch(`https://buddysfood.herokuapp.com/api/hospital/${id}`).then((result) =>{
+    //             console.log("hospdata",result);
+    //             result.json().then((resp) => {
+    //                 setHospitalData(resp);
+    //                 console.log("hodata",hospitalData);
+    //             })
+    //         })
+    //    },[id])
+
+    const hospital = async () => {
+        const response = await fetch(`https://buddysfood.herokuapp.com/api/hospital/${id}`)
+        if(!response.ok){
+            throw new Error ('data not found')
         }else{
-            setShow(true)
+            return response.json();
         }
     }
-    console.log("show",show)
-    return(
-        <div>
-        <div className="cta doctor">
+
+    useEffect (() => {
+        hospital().then((res) => {
+            setHospitalData(res)
+            console.log("hospital321",hospitalData)
+        })
+        .catch((e) =>{
+            console.log(e.message)
+        })
+    },[])
+      
+
+  return (
+    <div>
+         <div className="cta doctor">
             <div className="container">
                 <div className="row">
                     <div className="col">
                         <div className="cta_container d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
                             <div className="cta_content">
-                                <div className="cta_title">Know About Your</div>
+                                <div className="cta_title">Hospital Details</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <div className="intro">
             <div className="container">
@@ -52,27 +60,27 @@ export default function DoctorDetails(){
                         <div className="intro_content">
                             <div className="section_title_container">
                                 <div className="title">
-                                    <h2>{item.frist_name} {item.last_name}</h2>
+                                    <h2>{hospitalData.name}</h2>
                                 </div>
                             </div>
                             <div className="intro_text">
-                                <h5>{item.speciality}</h5>
+                                <h5>{hospitalData.address}</h5>
                             </div>
                             <div className="intro_text">
-                                <h5>{item.biography}</h5>
+                                <h5></h5>
                             </div>
                                 <div className="milestones ">
                                     <div className="row milestones_row ">
                                         <div className="col-md-6 milestone_col">
                                             <div className="milestone">
-                                                <div className="counter">Email</div>
-                                                <div className="text">{item.email}</div>
+                                                <div className="counter">Timing</div>
+                                                <div className="text">{hospitalData.timing}</div>
                                             </div>
                                         </div>
                                         <div className="col-md-6 milestone_col">
                                             <div className="milestone">
-                                                <div className="counter">PhoneNo.</div>
-                                                <div className="text">{item.contact?.[0].phone_number}</div>
+                                                <div className="counter">Contact Details</div>
+                                                <div className="text">{hospitalData.contact}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -81,14 +89,14 @@ export default function DoctorDetails(){
                                     <div className="row milestones_row">
                                         <div className="col-md-6 milestone_col">
                                             <div className="milestone">
-                                                <div className="counter">Position</div>
-                                                <div className="text">{item.position}</div>
+                                                <div className="counter">Number of Beds</div>
+                                                <div className="text">{hospitalData.hospitalBedCount}</div>
                                             </div>
                                         </div>
                                         <div className="col-md-6 milestone_col">
                                             <div className="milestone">
-                                                <div className="counter">Timings</div>
-                                                <div className="text">{item.morning_time} - {item.evening_time}</div>
+                                                <div className="counter">City</div>
+                                                <div className="text">{hospitalData.city}</div>
                                             </div>
                                         </div>
                                      </div>
@@ -97,34 +105,14 @@ export default function DoctorDetails(){
                                     <div className="row milestones_row">
                                         <div className="col-md-6 milestone_col">
                                             <div className="milestone">
-                                                <div className="counter">Experience Center</div>
-                                                <div className="text">{item.experiance?.[0].exp_center}</div>
+                                                <div className="counter">State</div>
+                                                <div className="text">{hospitalData.state}</div>
                                             </div>
                                         </div>
-                                        <div className="col-md-6 milestone_col">
-                                            <div className="milestone">
-                                                <div className="counter">Experience Location</div>
-                                                <div className="text">{item.experiance?.[0].exp_location}</div>
-                                            </div>
-                                        </div>
+
                                      </div>
                                 </div>
-                                <div className="milestones">
-                                    <div className="row milestones_row">
-                                        <div className="col-md-6 milestone_col">
-                                            <div className="milestone">
-                                                <div className="counter">Start Year</div>
-                                                <div className="text">{item.experiance?.[0].start_year}</div>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6 milestone_col">
-                                            <div className="milestone">
-                                                <div className="counter">End Year</div>
-                                                <div className="text">{item.experiance?.[0].end_year}</div>
-                                            </div>
-                                        </div>
-                                     </div>
-                                </div>
+                               
                             <div className="milestones">
                                 <div className="row milestones_row">
                                     <div className="col-md-12 milestone_col appoint-table">
@@ -170,12 +158,11 @@ export default function DoctorDetails(){
                     </div>
                  {/* )} */}
                     <div className="col-lg-3 offset-lg-1">
-                    <button className="button button_1 intro_button appointment trans_200" onClick={ e =>loginpopup(id._id)} >Make An Appointment</button>
+                    <button className="button button_1 intro_button appointment trans_200" >Contact</button>
                     </div>
                 </div>
             </div>
         </div>
-<LoginPopup setShow={setShow} show={show}/>
     </div>
-    )
+  )
 }

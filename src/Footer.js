@@ -93,11 +93,11 @@ export default function Footer(){
             </div>
                                     <nav class="footer_nav ml-md-auto">
                                         <ul class="d-flex flex-row align-items-center justify-content-start">
-                                            <li><Link to ="index.html">Home</Link></li>
-                                            <li><Link to ="about.html">About us</Link></li>
-                                            <li><Link to ="services.html">Services</Link></li>
-                                            <li><Link to ="blog.html">News</Link></li>
-                                            <li><Link to ="contact.html">Contact</Link></li>
+                                            <li><Link to ="/">Home</Link></li>
+                                            <li><Link to ="/about">About us</Link></li>
+                                            <li><Link to ="/doctorteam">Our Team</Link></li>
+                                            <li><Link to ="/hospitals">Hospitals</Link></li>
+                                            <li><Link to ="/contact">Contact</Link></li>
                                         </ul>
                                     </nav>
                                 </div>

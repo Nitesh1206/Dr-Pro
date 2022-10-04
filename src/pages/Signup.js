@@ -1,7 +1,9 @@
 import React from 'react';
-import {useEffect, useState} from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import {alert} from 'react-alert';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Signup(){
 
     const [name,setName] = useState('');
@@ -11,7 +13,7 @@ export default function Signup(){
     const [dob,setDob] = useState('');
     const [gender,setGender] = useState('');
      const history = useHistory('');
-
+     
     // function signupDetail(e){
     //     e.preventDefault(e)
     //     let data = {name:name,email:email,phone_no:phone_no,password:password,dob:dob,gender:gender}
@@ -46,7 +48,9 @@ export default function Signup(){
         });
         let result2 = await result.json();
         if (result2.msg === "Registration Successfully") {
-            alert(result2.msg,{type: 'success'})
+            toast.info('Registration Successfull', {
+                position: toast.POSITION.TOP_RIGHT
+            });
         }
         console.log("result2",result2);
         localStorage.setItem('user-info', JSON.stringify(result2));
@@ -84,6 +88,7 @@ export default function Signup(){
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

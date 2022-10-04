@@ -2,7 +2,8 @@ import React, {useState, useContext} from "react";
 import { ContextPatient } from '../context/PatientContext';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// import { Alert } from 'react-alert';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function UpdatePage({show,setShow}){
     const [name, setName] = useState('');
@@ -33,7 +34,9 @@ function upDate(e){
 
     let output2 = output.json();
       if(output2.msg === "Detail Upadate Successfully"){
-        alert(output2.msg, {type: 'success'})
+        toast.info('Detail Upadate Successfully', {
+          position: toast.POSITION.TOP_RIGHT
+      });
         localStorage.setItem('user-info',item)
       }
       setShow(false);
@@ -104,6 +107,8 @@ function upDate(e){
         </Modal.Footer>        
       </Modal>
         </div>
+        
+        <ToastContainer />
         </div>
     )
 }

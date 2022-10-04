@@ -3,6 +3,8 @@ import {useParams } from "react-router-dom";
 import { ContextPatient } from '../context/PatientContext';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function LoginPopup({show,setShow}) {
   console.log("show12",show)
@@ -30,11 +32,12 @@ export default function LoginPopup({show,setShow}) {
             },
             body: JSON.stringify(item)           
         });
-
+        
         let result2 = await result.json();
              if (result2.msg === "Appointment Booked successfully") {              
-              alert(result2.msg, { type: 'success' })
-                      
+              toast.info('Appointment Booked successfully', {
+                position: toast.POSITION.TOP_RIGHT
+            });                      
         }  
         setShow(false)
       } 
@@ -79,7 +82,7 @@ export default function LoginPopup({show,setShow}) {
             <div className="form-check form-check-inline">
               <input className="form-check-input" value="Male" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                 <label className="form-check-label" htmlFor="flexRadioDefault1">Male</label>
-            </div>                               
+            </div>                                
             <div className="form-check form-check-inline">
                 <input className="form-check-input" value="Female" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                   <label className="form-check-label" htmlFor="flexRadioDefault2">Female</label>
@@ -96,6 +99,8 @@ export default function LoginPopup({show,setShow}) {
           </Button>
         </Modal.Footer>        
       </Modal>
+
+      <ToastContainer />
         </div>
     )
 }

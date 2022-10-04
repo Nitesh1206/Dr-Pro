@@ -300,6 +300,13 @@ section
 	background-size: cover;
 	background-position: center center;
 }
+.background_image img{
+	max-width: 100%;
+}
+.parallax_background img{
+	max-width: 100%;
+	height:700px;
+}
 .nopadding
 {
 	padding: 0px !important;
@@ -677,7 +684,7 @@ section
 {
 	width: 100%;
 	height: 260px;
-	margin-top: 360px;
+	margin-top: 115px;
 }
 
 .home_slider_container
@@ -760,7 +767,6 @@ section
 {
 	width: 100%;
 	background: #FFFFFF;
-	padding-top: 89px;
 	padding-bottom: 90px;
 }
 .intro_content
@@ -832,11 +838,19 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
-
+.team_text .doc-contact{
+	 margin-bottom: 0;
+	 line-height: 2;
+	 
+}
 
 .intro_input.search {
-    width: calc((142% - 13px) / 2);
-    height: 40px;
+    width: calc((100% - 10px) / 2);
+    height: 46px;
+	background: transparent;
+    border: solid 2px #57ccc3;
+	border-radius:20px;
+	margin-bottom: 0;
 }
 .intro_select
 {
@@ -1389,19 +1403,16 @@ section
 
 
 
-
-
 /* contact page css */
 
 .home.contact .home_container{
     position: absolute;
-    top: -130px;
     left: 0;
     width: 100%;
 }
 
 .home.contact .home_overlay {
-    top:0;
+    bottom:0;
 	position:absolute;
 }
 
@@ -1536,7 +1547,13 @@ section
 {
 	background: #fd556d;
 	border: solid 2px transparent;
+	color: #ffffff;
+    font-weight: 500;
 }
+.button_1:hover{
+	color: #fd556d;
+}
+
 .button_1 a
 {
 	color: #FFFFFF;
@@ -1573,6 +1590,7 @@ section
 	font-weight: 500;
 	color: #a6abb2;
 	line-height: 0.75;
+	margin-top: 50px;
 }
 .section_title
 {
@@ -2419,7 +2437,9 @@ section
 .doctor-team.team{
 	padding:100px 0;
 }
-
+.doc-list{
+	margin-top:20px
+}
 
 /* signup page css */
 
@@ -2433,4 +2453,67 @@ section
 
 .modal-box{
 	padding:50px 0;
+}
+
+
+/* patient page css */
+
+.cta.patient
+{
+	width: 100%;
+	background: #fd556d;
+	padding-top: 155px;
+	padding-bottom: 46px;
+}
+.button_1.header_button.edit{
+margin-top:35px
+}
+
+
+/* doctor detail page css */
+
+.cta.doctor
+{
+	width: 100%;
+	background: #fd556d;
+	padding-top: 155px;
+	padding-bottom: 46px;
+}
+.button_1.intro_button.appointment{
+margin-top:35px
+}
+
+
+/* about-us page css */
+
+.home.about {
+    width: 100%;
+    height: 0;
+	margin-top:0;
+}
+.intro_image.about{
+	margin-top:100px;
+}
+
+
+/* contact page css */
+
+.home.contact{
+	margin-top:0;
+}
+
+
+/* hospital page css */
+
+.header_button.hospitals{
+	width:max-content;
+}
+
+/* header component css */
+
+.header_social ul li svg, .contact_social ul li svg{
+	color:#000;
+}
+.header_social ul li:hover svg{
+	color:#fff;
 }

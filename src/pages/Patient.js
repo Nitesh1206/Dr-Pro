@@ -57,7 +57,7 @@ export default function Patient() {
 
     return (
         <div>
-            <div className="cta">
+            <div className="cta patient">
                 <div className="container">
                     <div className="row">
                         <div className="col">
@@ -123,7 +123,7 @@ export default function Patient() {
                                         <div className="col-md-12 milestone_col">
                                             <div className="milestone ">
                                                 {[item].map((id) =>
-                                                    <button className="btn bt ap mb-3 button button_1 header_button" onClick={e => appointment(id._id)} >Upcoming Appointment</button>
+                                                 <button className="btn bt ap mb-3 button button_1 header_button" onClick={e => appointment(id._id)} >Upcoming Appointment</button>
                                                 )}
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@ export default function Patient() {
                             </div>
                         </div>
                         <div className="col-lg-3 offset-lg-1">
-                        <button className="btn bt ap mb-3 button button_1 header_button" onClick={edit}>EDIT</button>
+                        <button className="btn bt ap mb-3 button button_1 header_button edit" onClick={edit}>EDIT</button>
                         </div>
                     </div>
                 </div>

@@ -1,19 +1,44 @@
 import React,{useState} from 'react';
-import { useHistory } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
+import CountUp, { useCountUp } from "react-countup";
 import LoginPopup from "./LoginPopup";
 
 export default function Home() {
 	const history = useHistory('')
 	const [show, setShow] = useState(false);
+	const [search, setSearch] = useState('');
+    const [search2,setSearch2] = useState('');
 
-	function loginpopup () {
-        if(!localStorage.getItem('userid'))
-    {
-            history.push("/login")
-        }else{
-            setShow(true)
-        }
+	const searchEvent = (e) => {
+        const data = e.target.value;
+        setSearch(data);
     }
+
+    const searchEvent2 = (e) => {	
+        const data2 = e.target.value;
+        setSearch2(data2);
+    }
+
+	useCountUp({
+		ref: "counter",
+		end: 2000,
+		enableScrollSpy: true,
+		scrollSpyDelay: 1000
+	  });
+
+	  useCountUp({
+		ref: "counter-two",
+		end: 472,
+		enableScrollSpy: true,
+		scrollSpyDelay: 1000
+	  });
+
+	  useCountUp({
+		ref: "counter-three",
+		end: 825,
+		enableScrollSpy: true,
+		scrollSpyDelay: 1000
+	  });
 
     return (
         <div>
@@ -28,7 +53,7 @@ export default function Home() {
                         
                         {/* <!-- Slide --> */}
                         <div className="owl-item">
-                            <div className="background_image" ></div>
+                            <div className="background_image" ><img src="images/home_slider.jpg" /></div>
                             <div className="home_container">
                                 <div className="container">
                                     <div className="row">
@@ -39,9 +64,13 @@ export default function Home() {
                                                 <div className="home_text">
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
                                                 </div>
+												<div className="section_subtitle">Find Your Surgeon</div>
                                                 <div className="home_buttons d-flex flex-row align-items-center justify-content-start">
-                                                    <div className="button button_1 trans_200"><a href="#">read more</a></div>
-                                                    <div className="button button_2 trans_200" onClick={loginpopup} ><a href="#">make an appointment</a></div>
+                                                    <div className="">														
+														<input type="text" value={search} onChange={searchEvent} className="intro_input search" placeholder="Search City"></input>
+                        								<input type="text" value={search2} onChange={searchEvent2} className="intro_input search" placeholder="Search Name"></input>
+													</div>
+                                                    <div className="button button_1 trans_200"> <Link to={`/ourteam/${search}/${search2}`} >Search</Link></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,7 +164,8 @@ export default function Home() {
 								{/* <!-- Milestone --> */}
 								<div className="col-md-4 milestone_col">
 									<div className="milestone">
-										<div className="milestone_counter" data-end-value="5000" data-sign-before="+">0</div>
+									<CountUp end={100} enableScrollSpy   />
+										<div className="milestone_counter" id="counter" data-end-value="5000" data-sign-before="+">0</div>
 										<div className="milestone_text">Satisfied Patients</div>
 									</div>
 								</div>
@@ -143,7 +173,8 @@ export default function Home() {
 								{/* <!-- Milestone --> */}
 								<div className="col-md-4 milestone_col">
 									<div className="milestone">
-										<div className="milestone_counter" data-end-value="352">0</div>
+									<CountUp end={100} enableScrollSpy   />
+										<div className="milestone_counter" id='counter-two' data-end-value="352">0</div>
 										<div className="milestone_text">Face Liftings</div>
 									</div>
 								</div>
@@ -151,7 +182,8 @@ export default function Home() {
 								{/* <!-- Milestone --> */}
 								<div className="col-md-4 milestone_col">
 									<div className="milestone">
-										<div className="milestone_counter" data-end-value="718">0</div>
+									<CountUp end={100} enableScrollSpy  />
+										<div className="milestone_counter" id='counter-three' data-end-value="718">0</div>
 										<div className="milestone_text">Injectibles</div>
 									</div>
 								</div>
@@ -223,7 +255,9 @@ export default function Home() {
 								{/* <!-- Why List Item --> */}
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="icon_container d-flex flex-column align-items-center justify-content-center">
-										<div class="icon"></div>
+										<div class="icon">
+										<img src="images/icon_1.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+										</div>
 									</div>
 									<div class="why_list_content">
 										<div class="why_list_title">Only Top Products</div>
@@ -234,7 +268,9 @@ export default function Home() {
 								{/* <!-- Why List Item --> */}
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="icon_container d-flex flex-column align-items-center justify-content-center">
-										<div class="icon"></div>
+										<div class="icon">
+										<img src="images/icon_2.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+										</div>
 									</div>
 									<div class="why_list_content">
 										<div class="why_list_title">The best Doctors</div>
@@ -245,7 +281,9 @@ export default function Home() {
 								{/* <!-- Why List Item --> */}
 								<li class="d-flex flex-row align-items-center justify-content-start">
 									<div class="icon_container d-flex flex-column align-items-center justify-content-center">
-										<div class="icon"></div>
+										<div class="icon">
+										<img src="images/icon_3.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+										</div>
 									</div>
 									<div class="why_list_content">
 										<div class="why_list_title">Great Feedback</div>
@@ -297,7 +335,9 @@ export default function Home() {
 					<div class="service text-center">
 						<div class="service">
 							<div class="icon_container d-flex flex-column align-items-center justify-content-center ml-auto mr-auto">
-								<div class="icon"></div>
+								<div class="icon">
+								<img src="images/icon_4.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+								</div>
 							</div>
 							<div class="service_title">Breast Augmentation</div>
 							<div class="service_text">
@@ -311,7 +351,9 @@ export default function Home() {
 					<div class="service text-center">
 						<div class="service">
 							<div class="icon_container d-flex flex-column align-items-center justify-content-center ml-auto mr-auto">
-								<div class="icon"></div>
+								<div class="icon">
+								<img src="images/icon_5.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+								</div>
 							</div>
 							<div class="service_title">Breast Augmentation</div>
 							<div class="service_text">
@@ -325,7 +367,9 @@ export default function Home() {
 					<div class="service text-center">
 						<div class="service">
 							<div class="icon_container d-flex flex-column align-items-center justify-content-center ml-auto mr-auto">
-								<div class="icon"></div>
+								<div class="icon">
+								<img src="images/icon_6.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+								</div>
 							</div>
 							<div class="service_title">Breast Augmentation</div>
 							<div class="service_text">
@@ -339,7 +383,9 @@ export default function Home() {
 					<div class="service text-center">
 						<div class="service">
 							<div class="icon_container d-flex flex-column align-items-center justify-content-center ml-auto mr-auto">
-								<div class="icon"></div>
+								<div class="icon">
+								<img src="images/icon_7.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+								</div>
 							</div>
 							<div class="service_title">Breast Augmentation</div>
 							<div class="service_text">
@@ -353,7 +399,9 @@ export default function Home() {
 					<div class="service text-center">
 						<div class="service">
 							<div class="icon_container d-flex flex-column align-items-center justify-content-center ml-auto mr-auto">
-								<div class="icon"></div>
+								<div class="icon">
+								<img src="images/icon_8.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+								</div>
 							</div>
 							<div class="service_title">Breast Augmentation</div>
 							<div class="service_text">
@@ -367,7 +415,9 @@ export default function Home() {
 					<div class="service text-center">
 						<div class="service">
 							<div class="icon_container d-flex flex-column align-items-center justify-content-center ml-auto mr-auto">
-								<div class="icon"></div>
+								<div class="icon">
+								<img src="images/icon_3.svg" alt="https://www.flaticon.com/authors/prosymbols" />
+								</div>
 							</div>
 							<div class="service_title">Breast Augmentation</div>
 							<div class="service_text">
@@ -384,7 +434,9 @@ export default function Home() {
     {/* <!-- Extra --> */}
 
 	<div class="extra">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/extra.jpg" data-speed="0.8"></div>
+		<div class="parallax_background parallax-window" data-parallax="scroll"  data-speed="0.8">
+			<img src="images/extra.jpg" />
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col">
@@ -409,7 +461,9 @@ export default function Home() {
 	{/* <!-- Newsletter --> */}
 
 	<div class="newsletter">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/newsletter.jpg" data-speed="0.8"></div>
+		<div class="parallax_background parallax-window" data-parallax="scroll"  data-speed="0.8">
+			<img src="images/newsletter.jpg" />
+		</div>
 		<div class="container">
 			<div class="row">
 				<div class="col text-center">
@@ -430,6 +484,7 @@ export default function Home() {
 	</div>
 
 	<LoginPopup setShow={setShow} show={show}/>
+	
  </div>
     )
 };

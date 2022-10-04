@@ -1,7 +1,36 @@
 import React from 'react';
+import CountUp, { useCountUp } from "react-countup";
 
 export default function About () {
     
+	useCountUp({
+		ref: "counter",
+		end: 2000,
+		enableScrollSpy: true,
+		scrollSpyDelay: 1000
+	  });
+
+	  useCountUp({
+		ref: "counter-two",
+		end: 472,
+		enableScrollSpy: true,
+		scrollSpyDelay: 3000
+	  });
+
+	  useCountUp({
+		ref: "counter-three",
+		end: 825,
+		enableScrollSpy: true,
+		scrollSpyDelay: 2000
+	  });
+
+	  useCountUp({
+		ref: "counter-four",
+		end: 5,
+		enableScrollSpy: true,
+		scrollSpyDelay: 2000
+	  });
+
 return (
     <div>
                 {/* <!-- Home --> */}
@@ -47,7 +76,8 @@ return (
 								
 								<div class="col-md-3 milestone_col">
 									<div class="milestone">
-										<div class="milestone_counter" data-end-value="5000" data-sign-before="+">0</div>
+									<CountUp end={100} enableScrollSpy   />
+										<div class="milestone_counter" id="counter"data-end-value="5000" data-sign-before="+">0</div>
 										<div class="milestone_text">Satisfied Patients</div>
 									</div>
 								</div>
@@ -55,7 +85,8 @@ return (
 								
 								<div class="col-md-3 milestone_col">
 									<div class="milestone">
-										<div class="milestone_counter" data-end-value="352">0</div>
+									<CountUp end={100} enableScrollSpy   />
+										<div class="milestone_counter" id="counter-two" data-end-value="352">0</div>
 										<div class="milestone_text">Face Liftings</div>
 									</div>
 								</div>
@@ -63,7 +94,8 @@ return (
 								
 								<div class="col-md-3 milestone_col">
 									<div class="milestone">
-										<div class="milestone_counter" data-end-value="718">0</div>
+									<CountUp end={100} enableScrollSpy   />
+										<div class="milestone_counter" id="counter-three" data-end-value="718">0</div>
 										<div class="milestone_text">Injectibles</div>
 									</div>
 								</div>
@@ -71,7 +103,8 @@ return (
 								
 								<div class="col-md-3 milestone_col">
 									<div class="milestone">
-										<div class="milestone_counter" data-end-value="5">0</div>
+									<CountUp end={100} enableScrollSpy   />
+										<div class="milestone_counter" id="counter-four" data-end-value="5">0</div>
 										<div class="milestone_text">Awards Won</div>
 									</div>
 								</div>
@@ -84,7 +117,7 @@ return (
 
 				{/* <!-- Intro Image --> */}
 				<div class="col-lg-3 offset-lg-1">
-					<div class="intro_image"><img src="images/intro_1.jpg" alt="" /></div>
+					<div class="intro_image about"><img src="images/intro_1.jpg" alt="" /></div>
 				</div>
 			</div>
 		</div>
